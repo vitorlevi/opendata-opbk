@@ -1,0 +1,37 @@
+<h2>Conta Corrente Pessoa Física</h2>
+
+<div class="content">
+  <div *ngFor="let item of brand$ | async" (click)="selectBrand(item)">
+    <button>{{item.key}}</button> &nbsp;
+  </div>
+  <hr>
+  <div *ngFor="let companie of companies$ | async">
+    Brand: {{companie.name}} <br />
+    Instituição: {{companie.name}}
+    <br />
+    <br />
+    <div *ngFor="let personal of companie.personalAccounts">
+      Tipo de Conta: {{personal.type}} <br /><br />
+
+      <div *ngFor="let bundle of personal.serviceBundles">
+        -
+        <b>
+          {{bundle.name}} (min. R$ {{bundle.minimum.value}}) - (max. R${{bundle.maximum.value}})</b>
+        <br />
+
+        <div *ngFor="let interval of bundle.prices">
+          -- {{interval.interval}} - R$ {{interval.monthlyFee | number : '1.2-2'}} -> Distr. {{interval.customers.rate *
+          100 | number : '1.2-2'}}%<br />
+        </div>
+        <br />
+      </div>
+      <div *ngFor="let service of personal.fees.services">
+        - {{service.name}} <br>
+        <div *ngFor="let price of service.prices">
+          -- R$ {{price.value }}
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
